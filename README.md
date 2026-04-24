@@ -1,1 +1,1 @@
-https://spiritweaving.github.io/zakrivayuschiy-teg-ad/
+https://github.com/SpiritWeaving/zakrivayuschiy-teg-ad
