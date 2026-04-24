@@ -18,7 +18,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url(../svg/background.svg);
+  background-image: var(--background-image-path);
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -53,7 +53,7 @@
 }
 
 /*Список постов*/
-.posts-list{
+.post-list{
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -117,6 +117,10 @@
   font-family: 'PressStart2P';
   line-height: 0.9;
   font-size: 14px;
+  position: relative;
+  z-index: 1;
+  mix-blend-mode: difference;
+  color: #fff;  
 }
 
 .post__buttons{
@@ -127,12 +131,229 @@
   gap: 12px;
 }
 
-.card__icon-button{
+.card__icon-button{ 
+  border: none;  
+  padding: 0;  
+}
 
+.card__icon-button:focus{
+  outline: none;
+  /* border: 2px solid black; */
 }
 
 .card__like-button{
-  padding: 12.5px 37px;
+  padding: var(--card-like-button-padding);   
+  width: var(--like-button-width);
+}
+
+.like-icon{
+  width: 39px;
+  height: 100%;  
+}
+
+/*Кнопка сохранить на память*/
+.button_with_hover_effect{
+  background-color: #fff;
   border: 2px solid black;
-  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+  display: flex;  
+  justify-content: center;
+  align-items: center;
+}
+
+.button_with_hover_effect:focus{
+  outline: none;
+  box-shadow: 2px 2px 0 black;
+  transition: 0.3s ease;
+}
+
+.button_with_hover_effect::before{
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;  
+  background-color: black;
+  height: 100%;
+  width: 100%;
+  transform: translate(-100%);
+  transition: transform 0.5s ease-in-out;
+}
+
+.button_with_hover_effect:is(:hover)::before{
+  transform: translate(0);
+}
+
+.button__save-dialog{
+  padding: var(--button__save-dialog-padding);
+  display: flex;
+  align-items: center;
+  gap: var(--button__save-dialog-gap);
+}
+
+.button-floppy-icon{
+  z-index: 1;
+  position: relative;
+  color: #fff;
+  mix-blend-mode: difference;
+}
+
+@media (width <= 375px){
+  .button__save-dialog{
+    flex-direction: column;
+  }
+}
+
+.footer{
+  margin-block-start: var(--footer-margin-block-start);
+  margin-block-end: var(--footer-margin-block-end);
+}
+
+/*Диалоговое окно*/
+#save-dialog{
+  width: var(--dialog-width);
+}
+
+.save-dialog-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+#save-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.75); 
+}
+
+.save-dialog-text{
+  display: flex;
+  gap: 20px;
+  align-items: center;  
+}
+
+.button__save-dialog-ok{
+  width: 100%;   
+  padding-block: var(--save-dialog-ok-button-padding-block);
+}
+
+/*Фильтры картинок*/
+.post__image-brightness{
+  filter: brightness(60%);
+}
+
+.post__image-blur{
+  filter: blur(5px);
+}
+
+.post__image-sepia{
+  filter: sepia(40%);
+}
+
+.post__image-invert{
+  filter: invert(70%);
+}
+
+.post__image-contrast{
+  filter: invert(30%);
+}
+
+.post__image-hue-rotate{
+  filter: hue-rotate(90deg);
+}
+
+/*Анимация сердца*/
+.sparks{
+  opacity: 0;
+}
+
+.like-icon .core {
+  fill: transparent;
+  transition: fill 0.3s ease 0.03s;
+}
+
+.like-icon .main-body {
+  fill: transparent;
+  stroke: transparent;
+  transition: fill 0.3s ease 0.05s, stroke 0.3s ease 0.05s;
+}
+
+.like-icon:hover .main-body{
+  fill: var(--accent-color);
+  stroke: var(--accent-color);
+  transition: all 0.3s ease-in 0.05s;
+}
+
+.like-icon:hover .core{
+  fill: var(--accent-color);  
+  transition: ease 0.3s;
+}
+
+.like-icon:not(:hover) .core{
+  fill: transparent;
+  transition-delay: 0.03s;
+}
+
+.like-icon:active .main-body{
+  fill: var(--animation-fill-color);
+  stroke: var(--animation-fill-color);
+  transition: all 0.3s ease-in 0.05s;
+}
+
+.like-icon:active .core{
+  fill: var(--animation-fill-color);
+  transition: all 0.3s ease-in 0.03s;
+}
+
+/*Клик по иконке*/
+.like-icon.is-liked .core{
+  fill: var(--animation-fill-color);
+  transition: all 0.3s ease-in 0.03s;
+}
+
+.like-icon.is-liked .main-body{
+  fill: var(--animation-fill-color);
+  stroke: var(--animation-fill-color);
+  transition: all 0.3s ease-in 0.05s;
+}
+
+.like-icon.is-liked .contour{
+  fill: var(--animation-fill-color);
+  stroke: var(--animation-fill-color);
+  transition: all 0.3s ease-in 0.06s;
+}
+
+@keyframes transformAnimation {
+  from {
+    transform: scale(1);
+  } 
+  to {
+    transform: scale(1.25);
+  }
+}
+
+@keyframes sparksAnimation{
+  from {
+    opacity: 0;;
+  } 
+  to {
+    opacity: 1;
+  }
+}
+
+.like-icon.is-liked .heart{
+  transform-origin: center center;
+  animation-name: transformAnimation;
+  animation-duration: 0.3s;
+  animation-delay: 0.1s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 1;
+}
+
+.like-icon.is-liked .sparks{
+  animation-name: sparksAnimation;
+  animation-duration: 0.3s;
+  animation-delay: 0.3s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 1;
 }

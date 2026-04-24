@@ -8,4 +8,22 @@
     --post-content-padding: 26px;
     --post-content-paragraph-margin: 27px;
     --post-content-buttons-margin-top: 25px;
+    --footer-margin-block-start: 52px;
+    --footer-margin-block-end: 100px;
+    --button__save-dialog-padding: 18.5px 20px;
+    --button__save-dialog-gap: 8px;
+    --dialog-width: clamp(341px, calc(325.507px + 4.131vw), 385px);
+    --save-dialog-ok-button-padding-block: 12.5px;
+    --card-like-button-padding: 12.5px 37px;
+    --background-image-path: url(../svg/background.svg);
+    --contour-color: #000;
+    --animation-fill-color: #FF0000;
+    --accent-color: #000;
+    --like-button-width: 130px;
+}
+
+@media (width > 375px){
+    :root{
+        --button__save-dialog-padding-block: 18.5px;
+    }
 }
